@@ -34,10 +34,10 @@ async function buttonClicked(id) {
   try {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const data = await res.json();
-    document.getElementById("pokemon-image").src = data.sprites.front_default;
-    document.getElementById("poke-id").textContent = `#${String(data.id).padStart(4, '0')}`;
+    document.getElementById("pokemon-image").src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+    document.getElementById("poke-id").textContent = `#${String(id).padStart(4, '0')}`;
 
-    const namePromise = getJapaneseName(data.id);
+    const namePromise = getJapaneseName(id);
     const typePromises = data.types.map(t => getJapaneseType(t.type.name));
     const [japaneseName, ...japaneseTypes] = await Promise.all([namePromise, ...typePromises]);
 

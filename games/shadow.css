@@ -119,6 +119,9 @@ h1 {
   height: 200px;
   image-rendering: pixelated;
   transition: filter 0.6s ease;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 #shadow-image.revealed {

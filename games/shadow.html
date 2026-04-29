@@ -27,7 +27,7 @@
 
     <div class="game-card">
       <div class="image-area">
-        <img id="shadow-image" src="" alt="shadow" />
+        <img id="shadow-image" src="" alt="shadow" draggable="false" />
       </div>
       <div id="nameBox">
         <p class="choice" id="choice1" onclick="choiceClicked(this)"></p>
@@ -62,11 +62,10 @@
       answered = false;
 
       try {
-        const imageResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${correctId}`).then(res => res.json());
-        const namesResponses = Promise.all(Ids.map(id => getJapaneseName(id)));
-        document.getElementById("shadow-image").src = imageResponse.sprites.front_default;
+        document.getElementById("shadow-image").src =
+          `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${correctId}.png`;
 
-        const namesData = await namesResponses;
+        const namesData = await Promise.all(Ids.map(id => getJapaneseName(id)));
         correctName = namesData[0];
         namesData.sort(() => Math.random() - 0.5);
 
