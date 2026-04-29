@@ -1,62 +1,44 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>ポケモン図鑑</title>
+  <link href="./index.css" rel="stylesheet" />
+</head>
+
 <body>
-  <h1>Hello, World!</h1>
-  <input type="text" id="pokemon-id" placeholder="Enter Pokemon ID" />
-  <button onclick="buttonClicked(document.getElementById('pokemon-id').value)">Get Pokemon</button>
-  <br />
-  <p id="poke-name"></p>
-  <img id="pokemon-image" src=""/>
-  <p id="poke-type"></p>
+  <h1>POKÉDEX</h1>
+  <p class="subtitle">National Pokédex</p>
 
-  <script>
-  function getJapaneseName(id) {
-    return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        const jaName = data.names.find(n => n.language.name === 'ja');
-        if (jaName != null) {
-          return jaName.name;
-        } else {
-          return "No name";
-        }
-      })
-      .catch(error => console.error("Error:", error));
-  }
+  <div class="search-box">
+    <input type="number" id="pokemon-id" placeholder="IDを入力（例: 25）" min="1" />
+    <button onclick="buttonClicked(document.getElementById('pokemon-id').value)">検索</button>
+  </div>
 
-  function getJapaneseType(typeName) {
-    console.log(typeName);
-    return fetch(`https://pokeapi.co/api/v2/type/${typeName}`)
-      .then(response => response.json())
-      .then(data => {
-        const jaType = data.names.find(n => n.language.name === 'ja');
-        return jaType ? jaType.name : typeName;
-      });
-  }
+  <p class="loading-msg" id="loading-msg"></p>
 
-  async function buttonClicked(id) {
-    // ポケモン基本情報
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const data = await response.json();
-    document.getElementById("pokemon-image").src = data.sprites.front_default;
+  <div class="card" id="pokemon-card">
+    <div class="card-header">
+      <img id="pokemon-image" src="" alt="pokemon" />
+      <div class="name-block">
+        <p id="poke-name"></p>
+        <div class="type-badges" id="type-badges"></div>
+      </div>
+      <span class="id-badge" id="poke-id"></span>
+    </div>
+    <div class="card-footer">
+      <div class="dot"></div>
+      <span>DATA FOUND</span>
+    </div>
+  </div>
 
-    // 日本語名
-    const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-    const speciesData = await speciesResponse.json();
-    const jaName = speciesData.names.find(n => n.language.name === 'ja');
-    document.getElementById("poke-name").textContent = jaName ? jaName.name : "No name";
-
-    // タイプ（日本語）
-    const typeNames = [];
-    for (const t of data.types) {
-      const typeResponse = await fetch(`https://pokeapi.co/api/v2/type/${t.type.name}`);
-      const typeData = await typeResponse.json();
-      const jaType = typeData.names.find(n => n.language.name === 'ja');
-      typeNames.push(jaType ? jaType.name : t.type.name);
-    }
-    console.log(typeNames);
-    document.getElementById("poke-type").textContent = typeNames.join(' / ');
-  }
-  </script>
 </body>
+
+<script src="./index.js"></script>
 
 </html>

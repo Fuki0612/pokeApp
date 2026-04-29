@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+:root {
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --card: #0f3460;
+  --accent: #e94560;
+  --text: #eaeaea;
+  --muted: #8892a4;
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2.4rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 0.25rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 360px;
+}
+
+input[type="number"] {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1.5px solid #2a2a4a;
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+  border-color: var(--accent);
+}
+
+input[type="number"]::placeholder {
+  color: var(--muted);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+button {
+  padding: 12px 20px;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1.5px solid #1e3a6e;
+  display: none;
+  animation: slideUp 0.35s ease;
+}
+
+.card.visible {
+  display: block;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-header {
+  background: linear-gradient(135deg, #0f3460 0%, #162447 100%);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.id-badge {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+#pokemon-image {
+  width: 100px;
+  height: 100px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 4px 12px rgba(233, 69, 96, 0.3));
+}
+
+.name-block {
+  flex: 1;
+}
+
+#poke-name {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Pixelify Sans', monospace;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.type-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid #1e3a6e;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.card-footer span {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'Pixelify Sans', monospace;
+  letter-spacing: 1px;
+}
+
+.loading-msg {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 20px;
+  font-family: 'Pixelify Sans', monospace;
+  letter-spacing: 1px;
+}
