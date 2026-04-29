@@ -24,6 +24,47 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* ── Header ── */
+
+header {
+  width: 100%;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+header nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+header nav a:hover {
+  color: var(--accent);
+}
+
+header nav a.active {
+  color: var(--text);
+}
+
+/* ── Main ── */
+
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
 }
@@ -45,6 +86,8 @@ h1 {
   text-transform: uppercase;
   margin-bottom: 2rem;
 }
+
+/* ── Search ── */
 
 .search-box {
   display: flex;
@@ -101,6 +144,8 @@ button:active {
   transform: scale(0.97);
 }
 
+/* ── Card ── */
+
 .card {
   width: 100%;
   max-width: 360px;
@@ -121,7 +166,6 @@ button:active {
     opacity: 0;
     transform: translateY(16px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -198,12 +242,9 @@ button:active {
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
-
   50% {
     opacity: 0.3;
   }
@@ -215,6 +256,8 @@ button:active {
   font-family: 'Pixelify Sans', monospace;
   letter-spacing: 1px;
 }
+
+/* ── Loading ── */
 
 .loading-msg {
   font-size: 13px;

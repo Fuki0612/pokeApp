@@ -7,38 +7,48 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>ポケモン図鑑</title>
+  <title>POKÉDEX</title>
   <link href="./index.css" rel="stylesheet" />
 </head>
 
 <body>
-  <h1>POKÉDEX</h1>
-  <p class="subtitle">National Pokédex</p>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/index.html" class="active">HOME</a></li>
+        <li><a href="/games/shadow.html">SHADOW QUIZ</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="search-box">
-    <input type="number" id="pokemon-id" placeholder="IDを入力（例: 25）" min="1" />
-    <button onclick="buttonClicked(document.getElementById('pokemon-id').value)">検索</button>
-  </div>
+  <main>
+    <h1>POKÉDEX</h1>
+    <p class="subtitle">National Pokédex</p>
 
-  <p class="loading-msg" id="loading-msg"></p>
+    <div class="search-box">
+      <input type="number" id="pokemon-id" placeholder="IDを入力（例: 25）" min="1" />
+      <button onclick="buttonClicked(document.getElementById('pokemon-id').value)">検索</button>
+    </div>
 
-  <div class="card" id="pokemon-card">
-    <div class="card-header">
-      <img id="pokemon-image" src="" alt="pokemon" />
-      <div class="name-block">
-        <p id="poke-name"></p>
-        <div class="type-badges" id="type-badges"></div>
+    <p class="loading-msg" id="loading-msg"></p>
+
+    <div class="card" id="pokemon-card">
+      <div class="card-header">
+        <img id="pokemon-image" src="" alt="pokemon" />
+        <div class="name-block">
+          <p id="poke-name"></p>
+          <div class="type-badges" id="type-badges"></div>
+        </div>
+        <span class="id-badge" id="poke-id"></span>
       </div>
-      <span class="id-badge" id="poke-id"></span>
+      <div class="card-footer">
+        <div class="dot"></div>
+        <span>DATA FOUND</span>
+      </div>
     </div>
-    <div class="card-footer">
-      <div class="dot"></div>
-      <span>DATA FOUND</span>
-    </div>
-  </div>
+  </main>
 
+  <script src="./index.js"></script>
 </body>
-
-<script src="./index.js"></script>
 
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>だれのすがた？ | POKÉDEX</title>
+  <link href="./shadow.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/index.html">HOME</a></li>
+        <li><a href="/games/shadow.html" class="active">SHADOW QUIZ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>だれのすがた？</h1>
+    <p class="subtitle">Shadow Pokémon Quiz</p>
+
+    <div class="game-card">
+      <div class="image-area">
+        <img id="shadow-image" src="" alt="shadow" />
+      </div>
+      <div id="nameBox">
+        <p class="choice" id="choice1" onclick="choiceClicked(this)"></p>
+        <p class="choice" id="choice2" onclick="choiceClicked(this)"></p>
+        <p class="choice" id="choice3" onclick="choiceClicked(this)"></p>
+        <p class="choice" id="choice4" onclick="choiceClicked(this)"></p>
+      </div>
+    </div>
+
+    <p id="result" class="result"></p>
+  </main>
+
+  <script>
+    function getRandomNo() {
+      return Math.floor(Math.random() * 1024 + 1);
+    }
+
+    async function getJapaneseName(id) {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+      const data = await res.json();
+      const jaName = data.names.find(n => n.language.name === "ja");
+      return jaName ? jaName.name : "No name";
+    }
+
+    let correctName = null;
+    let answered = false;
+
+    const Ids = [getRandomNo(), getRandomNo(), getRandomNo(), getRandomNo()];
+    const correctId = Ids[0];
+    async function init() {
+      correctName = null;
+      answered = false;
+
+      try {
+        const imageResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${correctId}`).then(res => res.json());
+        const namesResponses = Promise.all(Ids.map(id => getJapaneseName(id)));
+        document.getElementById("shadow-image").src = imageResponse.sprites.front_default;
+
+        const namesData = await namesResponses;
+        correctName = namesData[0];
+        namesData.sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < 4; i++) {
+          document.getElementById(`choice${i + 1}`).textContent = namesData[i];
+        }
+
+      } catch (e) {
+        msg.textContent = "取得に失敗しました";
+      }
+    }
+
+    function choiceClicked(el) {
+      if (answered || !correctName) return;
+      answered = true;
+
+      document.getElementById("shadow-image").classList.add("revealed");
+
+      const isCorrect = el.textContent === correctName;
+
+      document.querySelectorAll(".choice").forEach(c => {
+        c.classList.add("disabled");
+        if (c.textContent === correctName) c.classList.add("correct");
+      });
+      if (!isCorrect) el.classList.add("wrong");
+
+      const result = document.getElementById("result");
+      result.textContent = isCorrect ? "せいかい！" : `ざんねん… こたえは「${correctName}」`;
+      result.className = "result " + (isCorrect ? "correct" : "wrong");
+    }
+
+    window.onload = init;
+  </script>
+</body>
+
+</html>
